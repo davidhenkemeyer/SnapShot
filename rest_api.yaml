@@ -1,0 +1,126 @@
+openapi: 3.0.0
+info:
+  title: Hockey Scheduling System API
+  version: 1.0.0
+paths:
+  /organizations:
+    get:
+      summary: Retrieve all organizations
+      responses:
+        '200':
+          description: A list of organizations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Organization'
+    post:
+      summary: Create a new organization
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewOrganization'
+      responses:
+        '201':
+          description: The created organization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organization'
+
+  /organizations/{id}:
+    get:
+      summary: Retrieve an organization by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: The organization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organization'
+    put:
+      summary: Update an organization
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Organization'
+      responses:
+        '200':
+          description: The updated organization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organization'
+    delete:
+      summary: Delete an organization
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: Organization deleted
+
+components:
+  schemas:
+    Organization:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        email:
+          type: string
+        phone_number:
+          type: string
+        contact_name:
+          type: string
+        contact_email:
+          type: string
+        contact_phone_number:
+          type: string
+      required:
+        - name
+
+    NewOrganization:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        phone_number:
+          type: string
+        contact_name:
+          type: string
+        contact_email:
+          type: string
+        contact_phone_number:
+          type: string
+      required:
+        - name
+
